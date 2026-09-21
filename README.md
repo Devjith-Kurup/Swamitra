@@ -56,6 +56,53 @@ The backend is PostgreSQL-compatible via `DATABASE_URL`. Secrets and API keys be
    pytest
    ```
 
+## API Endpoints
+
+### Crop Recommendation
+`POST /api/v1/crops/predict`
+
+Predicts the most suitable crop based on soil and climate conditions using a Hugging Face machine learning model. The model is loaded automatically upon application startup.
+
+**Request Body:**
+```json
+{
+  "nitrogen": 90,
+  "phosphorus": 42,
+  "potassium": 43,
+  "ph": 6.5,
+  "temperature": 25.0,
+  "humidity": 80.0,
+  "rainfall": 200.0
+}
+```
+
+**Response:**
+```json
+{
+  "predicted_crop": "apple",
+  "recommendations": [
+    {
+      "crop": "apple",
+      "score": 0.8
+    },
+    {
+      "crop": "banana",
+      "score": 0.15
+    }
+  ],
+  "model": "Sheshank2609/crop-recommendation-system",
+  "features_used": {
+    "nitrogen": 90,
+    "phosphorus": 42,
+    "potassium": 43,
+    "ph": 6.5,
+    "temperature": 25.0,
+    "humidity": 80.0,
+    "rainfall": 200.0
+  }
+}
+```
+
 ## Docker
 
 From the repository root, after creating a `.env` from `.env.example`:

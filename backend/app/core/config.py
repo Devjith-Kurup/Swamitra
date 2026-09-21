@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     environment: str = "development"
     log_level: str = "INFO"
     database_url: str = "postgresql://USER:PASSWORD@localhost:5432/DATABASE_NAME"
+    
+    # Weather configuration
+    weather_provider: str = "open-meteo"
+    weather_api_key: str | None = None
 
 
 @lru_cache
