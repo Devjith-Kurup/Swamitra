@@ -1,7 +1,7 @@
 import logging
 import joblib
 import pandas as pd
-from typing import Optional
+from typing import Optional, Dict
 from huggingface_hub import hf_hub_download
 
 from app.schemas.crop import (
@@ -98,6 +98,19 @@ class CropService:
             model=self.model_id,
             features_used=request.model_dump()
         )
+
+    def get_all_probabilities(self, features_dict: dict) -> Dict[str, float]:
+        """
+        Returns the raw ML probability for every crop label, sorted descending.
+        This is the full probability distribution — not capped at top-5.
+        Called by SuitabilityService to score all candidates before re-ranking.
+        """
+        if self.model is None or self.label_encoder is None:
+            raise RuntimeError("Model is not loaded or is unavailable.")
+        df = pd.DataFrame([features_dict])
+        proba = self.model.predict_proba(df)[0]
+        crop_scores = {c: float(p) for c, p in zip(self.label_encoder.classes_, proba)}
+        return dict(sorted(crop_scores.items(), key=lambda x: x[1], reverse=True))
 
 # Singleton instance
 _crop_service_instance: Optional[CropService] = None

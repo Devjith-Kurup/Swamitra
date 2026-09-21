@@ -1,6 +1,6 @@
 import pytest
 import httpx
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch, AsyncMock, MagicMock
 from app.services.weather_service import WeatherService, OpenMeteoProvider, weather_cache
 
 @pytest.fixture
@@ -25,7 +25,7 @@ def mock_open_meteo_response():
 async def test_get_weather_success(mock_get, mock_open_meteo_response):
     weather_cache.clear()
     
-    mock_response = AsyncMock()
+    mock_response = MagicMock()
     mock_response.raise_for_status = lambda: None
     mock_response.json.return_value = mock_open_meteo_response
     mock_get.return_value = mock_response
@@ -45,7 +45,7 @@ async def test_get_weather_success(mock_get, mock_open_meteo_response):
 async def test_get_weather_caching(mock_get, mock_open_meteo_response):
     weather_cache.clear()
     
-    mock_response = AsyncMock()
+    mock_response = MagicMock()
     mock_response.raise_for_status = lambda: None
     mock_response.json.return_value = mock_open_meteo_response
     mock_get.return_value = mock_response
@@ -67,9 +67,9 @@ async def test_get_weather_retry_logic(mock_get, mock_open_meteo_response):
     weather_cache.clear()
     
     # First call fails, second call succeeds
-    mock_fail = httpx.HTTPStatusError("Error", request=AsyncMock(), response=AsyncMock())
+    mock_fail = httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock())
     
-    mock_success = AsyncMock()
+    mock_success = MagicMock()
     mock_success.raise_for_status = lambda: None
     mock_success.json.return_value = mock_open_meteo_response
     

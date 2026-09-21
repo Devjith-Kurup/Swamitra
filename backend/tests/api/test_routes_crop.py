@@ -83,10 +83,13 @@ def test_predict_crop_missing_field(mock_crop_service):
         "ph": 6.5
     }
     
+    # Mock the service to raise the ValueError as the real service would
+    mock_crop_service.predict.side_effect = ValueError("Temperature, humidity, and rainfall must be provided if latitude and longitude are not specified.")
+    
     response = client.post("/api/v1/crops/predict", json=invalid_payload)
-    assert response.status_code == 422
-    assert "rainfall" in response.text
-    mock_crop_service.predict.assert_not_called()
+    assert response.status_code == 400
+    assert "must be provided" in response.text
+    mock_crop_service.predict.assert_called_once()
 
 def test_predict_crop_service_unavailable(valid_payload, mock_crop_service):
     mock_crop_service.predict.side_effect = RuntimeError("Model not loaded")

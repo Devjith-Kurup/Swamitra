@@ -1,7 +1,7 @@
 import pytest
 import httpx
 from fastapi.testclient import TestClient
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch, MagicMock
 
 from app.main import app
 from app.services.weather_service import get_weather_service
@@ -28,7 +28,7 @@ def mock_open_meteo_response():
 @patch("httpx.AsyncClient.get")
 def test_get_current_weather_success(mock_get, mock_open_meteo_response):
     # Setup mock
-    mock_response = AsyncMock()
+    mock_response = MagicMock()
     mock_response.raise_for_status = lambda: None
     mock_response.json.return_value = mock_open_meteo_response
     mock_get.return_value = mock_response
@@ -50,7 +50,7 @@ def test_get_current_weather_success(mock_get, mock_open_meteo_response):
 
 @patch("httpx.AsyncClient.get")
 def test_get_current_weather_api_failure(mock_get):
-    mock_fail = httpx.HTTPStatusError("Error", request=AsyncMock(), response=AsyncMock())
+    mock_fail = httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock())
     mock_get.side_effect = mock_fail
     
     # Clear cache before test
