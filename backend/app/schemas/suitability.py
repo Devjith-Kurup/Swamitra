@@ -51,6 +51,28 @@ class RecommendationRequest(BaseModel):
     # --- Farm constraints (required for suitability scoring) ---
     farm_constraints: FarmConstraints
 
+    # --- Yield enrichment (optional) ---
+    include_yield: bool = Field(
+        False,
+        description=(
+            "If true, call the yield prediction model for each of the top 3 recommended crops. "
+            "Requires yield_state, yield_season, and yield_soil_type to be provided. "
+            "Defaults to false to preserve backwards compatibility."
+        ),
+    )
+    yield_state: Optional[str] = Field(
+        None,
+        description="Indian state name for yield prediction (required if include_yield=true).",
+    )
+    yield_season: Optional[str] = Field(
+        None,
+        description="Growing season for yield prediction (required if include_yield=true).",
+    )
+    yield_soil_type: Optional[str] = Field(
+        None,
+        description="Soil type for yield prediction (required if include_yield=true).",
+    )
+
 
 class LimitingFactor(BaseModel):
     """A single named constraint that reduced the suitability score for a crop."""
@@ -72,6 +94,20 @@ class CropSuitabilityResult(BaseModel):
         description="Ordered list of factors that reduced the suitability score. Empty = fully compatible."
     )
     explanation: str = Field(..., description="Plain-language summary of the suitability assessment.")
+
+    # Optional yield enrichment fields (only present if include_yield=true was requested)
+    predicted_yield_per_ha: Optional[float] = Field(
+        None,
+        description="Yield model prediction in quintal/hectare. Only present if yield enrichment was requested.",
+    )
+    estimated_total_production: Optional[float] = Field(
+        None,
+        description="Estimated total production in quintal (yield_per_ha × area). Only present if yield enrichment was requested.",
+    )
+    yield_unit: Optional[str] = Field(
+        None,
+        description="Unit for predicted_yield_per_ha. Always 'quintal/hectare' when present.",
+    )
 
 
 class RecommendationMetadata(BaseModel):
