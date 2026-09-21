@@ -1,0 +1,1 @@
+"""Swamitra backend application package."""

@@ -1,0 +1,93 @@
+# Secrets and local env
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.cover
+.hypothesis/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next/
+.nuxt/
+.output/
+.turbo/
+coverage/
+
+# Datasets (keep directory placeholders)
+data/raw/**
+data/processed/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.geojson
+*.tif
+*.tiff
+*.shp
+*.shx
+*.dbf
+*.gpkg
+*.nc
+*.h5
+*.hdf5
+
+# Model weights and artifacts
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pb
+*.tflite
+*.pkl
+*.pickle
+*.joblib
+*.safetensors
+ml/artifacts/
+ml/runs/
+ml/**/checkpoints/
+
+# Docker / local runtime
+*.log
+docker-data/
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
