@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle2, TrendingUp, Scale, ArrowRight } from 'lucide-react';
 import { CropSuitabilityResult } from '../../types/crop';
 import { LimitingFactorBadge } from './LimitingFactorBadge';
+import { getCropImageUrl } from '../../utils/cropImages';
 
 interface RecommendationCardProps {
   cropResult: CropSuitabilityResult;
@@ -33,26 +34,30 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
   return (
     <div className="glass-card hover:-translate-y-1 transition-all duration-300 p-5 flex flex-col justify-between h-full">
       <div>
-        {/* Card Header */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-2.5">
+        {/* Crop Image Header */}
+        <div className="relative h-36 w-full mb-4 rounded-xl overflow-hidden shadow-sm">
+          <img 
+            src={getCropImageUrl(cropResult.crop)} 
+            alt={cropResult.crop}
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+          <div className="absolute bottom-3 left-3 flex items-center gap-2">
             <span
-              className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs border ${getRankBadgeStyle(
+              className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs border shadow-sm ${getRankBadgeStyle(
                 rank
               )}`}
             >
               #{rank}
             </span>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 capitalize tracking-tight">
+              <h3 className="text-xl font-black text-white capitalize tracking-tight drop-shadow-md">
                 {cropResult.crop}
               </h3>
-              <p className="text-xs text-slate-500 font-medium">Top Match Candidate</p>
             </div>
           </div>
-
-          <div className="text-right">
-            <div className="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-emerald-100 text-emerald-800">
+          <div className="absolute top-3 right-3">
+            <div className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-white/90 text-emerald-800 shadow-sm backdrop-blur-sm">
               {suitabilityPct >= 80 ? 'Excellent Match' : suitabilityPct >= 60 ? 'Good Match' : 'Fair Match'}
             </div>
           </div>

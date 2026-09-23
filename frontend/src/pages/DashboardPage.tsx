@@ -17,6 +17,7 @@ import { useFarm, LOCATION_PRESETS } from '../context/FarmContext';
 import { MetricCard } from '../components/common/MetricCard';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { TabId } from '../components/layout/Navbar';
+import { getCropImageUrl } from '../utils/cropImages';
 
 interface DashboardPageProps {
   onNavigate: (tab: TabId) => void;
@@ -145,34 +146,47 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
       {topCrop && (
         <div className="bg-gradient-to-r from-emerald-800 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-lg shadow-emerald-900/20 relative overflow-hidden animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-800/80 text-emerald-200 text-xs font-semibold border border-emerald-700/50">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Primary Recommendation</span>
+            
+            <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full">
+              {/* Crop Image */}
+              <div className="w-full sm:w-32 h-40 sm:h-32 flex-shrink-0 rounded-2xl overflow-hidden shadow-md border-2 border-emerald-700/50">
+                <img 
+                  src={getCropImageUrl(topCrop.crop)} 
+                  alt={topCrop.crop} 
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-black mt-2 capitalize tracking-tight">
-                {topCrop.crop}
-              </h2>
-              <p className="text-emerald-100/90 text-sm mt-2 leading-relaxed">
-                {topCrop.explanation}
-              </p>
 
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm font-medium">
-                <div className="flex items-center gap-1.5 bg-emerald-700/50 px-3 py-1.5 rounded-lg border border-emerald-600/50">
-                  <Sparkles className="w-4 h-4 text-emerald-300" />
-                  <span>Match Rating:</span>
-                  <strong className="text-white">Excellent Match</strong>
+              {/* Text Content */}
+              <div className="max-w-xl">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-800/80 text-emerald-200 text-xs font-semibold border border-emerald-700/50">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Primary Recommendation</span>
                 </div>
-                {topCrop.predicted_yield_per_ha && (
-                  <div className="flex items-center gap-1.5 text-emerald-200">
-                    <span>Expected Yield:</span>
-                    <strong className="text-white text-base">{topCrop.predicted_yield_per_ha.toFixed(2)} quintal/ha</strong>
+                <h2 className="text-3xl sm:text-4xl font-black mt-2 capitalize tracking-tight">
+                  {topCrop.crop}
+                </h2>
+                <p className="text-emerald-100/90 text-sm mt-2 leading-relaxed">
+                  {topCrop.explanation}
+                </p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-4 text-sm font-medium">
+                  <div className="flex items-center gap-1.5 bg-emerald-700/50 px-3 py-1.5 rounded-lg border border-emerald-600/50">
+                    <Sparkles className="w-4 h-4 text-emerald-300" />
+                    <span>Match Rating:</span>
+                    <strong className="text-white">Excellent Match</strong>
                   </div>
-                )}
+                  {topCrop.predicted_yield_per_ha && (
+                    <div className="flex items-center gap-1.5 text-emerald-200">
+                      <span>Expected Yield:</span>
+                      <strong className="text-white text-base">{topCrop.predicted_yield_per_ha.toFixed(2)} quintal/ha</strong>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 w-full lg:w-auto">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 w-full lg:w-auto mt-4 lg:mt-0">
               <button
                 onClick={() => onNavigate('recommendations')}
                 className="px-5 py-3 rounded-xl bg-white text-emerald-950 font-bold text-xs hover:bg-emerald-50 transition-colors shadow-sm text-center"
