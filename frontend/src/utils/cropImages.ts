@@ -1,35 +1,37 @@
 export const getCropImageUrl = (cropName: string): string => {
   const normalized = cropName.toLowerCase().trim();
-  
+
   const map: Record<string, string> = {
-    rice: 'https://images.unsplash.com/photo-1586771107565-962cbce4e4ba?auto=format&fit=crop&q=80&w=800',
-    paddy: 'https://images.unsplash.com/photo-1586771107565-962cbce4e4ba?auto=format&fit=crop&q=80&w=800',
-    wheat: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=800',
-    maize: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&q=80&w=800',
-    corn: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&q=80&w=800',
-    cotton: 'https://images.unsplash.com/photo-1584852951717-d5d1c2386a34?auto=format&fit=crop&q=80&w=800',
-    sugarcane: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800',
-    soybean: 'https://images.unsplash.com/photo-1627926210332-9ec9bc8a5c32?auto=format&fit=crop&q=80&w=800',
-    groundnut: 'https://images.unsplash.com/photo-1598460592963-718693c0dae8?auto=format&fit=crop&q=80&w=800',
-    mustard: 'https://images.unsplash.com/photo-1522067784013-4333b2a59a72?auto=format&fit=crop&q=80&w=800',
-    millet: 'https://images.unsplash.com/photo-1630138905389-9134a6ef537d?auto=format&fit=crop&q=80&w=800',
-    jute: 'https://images.unsplash.com/photo-1616886477042-3e2b20fb97a1?auto=format&fit=crop&q=80&w=800',
-    chickpea: 'https://images.unsplash.com/photo-1574516629949-aebba827f714?auto=format&fit=crop&q=80&w=800',
-    barley: 'https://images.unsplash.com/photo-1537233880468-b3d2b272fdf8?auto=format&fit=crop&q=80&w=800',
-    tea: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&q=80&w=800',
-    coffee: 'https://images.unsplash.com/photo-1551699933-2586a11e2f5b?auto=format&fit=crop&q=80&w=800',
-    apple: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?auto=format&fit=crop&q=80&w=800',
-    banana: 'https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&q=80&w=800',
-    mango: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=800',
-    grapes: 'https://images.unsplash.com/photo-1596363505729-f4204531d5eb?auto=format&fit=crop&q=80&w=800',
-    orange: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?auto=format&fit=crop&q=80&w=800',
-    papaya: 'https://images.unsplash.com/photo-1617112848923-cc2234394a8a?auto=format&fit=crop&q=80&w=800',
-    coconut: 'https://images.unsplash.com/photo-1526424382096-74a93e105682?auto=format&fit=crop&q=80&w=800',
-    pomegranate: 'https://images.unsplash.com/photo-1528659173007-8e65e6ebc45a?auto=format&fit=crop&q=80&w=800',
+    rice: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/20201102.Hengnan.Hybrid_rice_Sanyou-1.6.jpg/960px-20201102.Hengnan.Hybrid_rice_Sanyou-1.6.jpg',
+    maize: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Zea_mays_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-283.jpg',
+    chickpea: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Chickpea_BNC.jpg/960px-Chickpea_BNC.jpg',
+    kidneybeans: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Red_Rajma_BNC.jpg/960px-Red_Rajma_BNC.jpg',
+    pigeonpeas: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Cajanus_cajan_Blanco1.167-cropped.jpg/960px-Cajanus_cajan_Blanco1.167-cropped.jpg',
+    mothbeans: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Mung_beans_%28Vigna_radiata%29.jpg/960px-Mung_beans_%28Vigna_radiata%29.jpg',
+    mungbean: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Mung_beans_%28Vigna_radiata%29.jpg/960px-Mung_beans_%28Vigna_radiata%29.jpg',
+    blackgram: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Black_gram.jpg/960px-Black_gram.jpg',
+    lentil: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/3_types_of_lentil.png/960px-3_types_of_lentil.png',
+    pomegranate: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Pomegranate_Juice_%282019%29.jpg/960px-Pomegranate_Juice_%282019%29.jpg',
+    banana: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg',
+    mango: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Mangos_-_single_and_halved.jpg/960px-Mangos_-_single_and_halved.jpg',
+    grapes: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Grapes%2C_Rostov-on-Don%2C_Russia.jpg/960px-Grapes%2C_Rostov-on-Don%2C_Russia.jpg',
+    watermelon: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg/960px-Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg',
+    muskmelon: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Muskmelon.jpg/960px-Muskmelon.jpg',
+    apple: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Pink_lady_and_cross_section.jpg/960px-Pink_lady_and_cross_section.jpg',
+    orange: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Oranges_-_whole-halved-segment.jpg/960px-Oranges_-_whole-halved-segment.jpg',
+    papaya: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Carica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg/960px-Carica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg',
+    coconut: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Cocos_nucifera_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-187.jpg/960px-Cocos_nucifera_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-187.jpg',
+    cotton: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/CottonPlant.JPG/960px-CottonPlant.JPG',
+    jute: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Jute_-_Kolkata_2003-10-31_00538.JPG/960px-Jute_-_Kolkata_2003-10-31_00538.JPG',
+    coffee: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_and_dark_coffee.jpg/960px-Latte_and_dark_coffee.jpg',
   };
 
+  // Try exact match first
+  if (map[normalized]) return map[normalized];
+
+  // Try partial match
   for (const key in map) {
-    if (normalized.includes(key)) {
+    if (normalized.includes(key) || key.includes(normalized)) {
       return map[key];
     }
   }
