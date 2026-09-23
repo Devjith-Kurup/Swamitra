@@ -27,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   };
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <header className="glass-nav sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Brand */}
@@ -56,10 +56,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
                 <button
                   key={item.id}
                   onClick={() => handleSelect(item.id)}
-                  className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
                     isActive
-                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200/60 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-white shadow-sm text-emerald-700 ring-1 ring-slate-900/5 translate-y-[-1px]'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 hover:shadow-sm'
                   }`}
                 >
                   {item.label}
@@ -124,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 shadow-lg">
+        <div className="md:hidden glass-card px-4 pt-2 pb-4 space-y-1 mx-4 mt-2 mb-4 animate-fade-in-up">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (

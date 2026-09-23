@@ -68,10 +68,10 @@ export const RecommendationsPage: React.FC<RecommendationsPageProps> = ({
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wider">
             <Sparkles className="w-4 h-4 text-emerald-700" />
-            <span>AI Agricultural Intelligence</span>
+            <span>Your Results</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1 tracking-tight">
-            Crop Recommendations & Yield Forecasts
+            Best Crops for Your Farm
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Evaluated for <strong>{profile?.name || profile?.locationName}</strong> ({profile?.farm_area_ha} ha) •{' '}
@@ -88,34 +88,20 @@ export const RecommendationsPage: React.FC<RecommendationsPageProps> = ({
         </button>
       </div>
 
-      {/* Model Transparency & Limitation Notice Banner */}
-      <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 text-xs space-y-2 shadow-xs">
-        <div className="flex items-center gap-2 font-bold text-amber-900">
-          <ShieldAlert className="w-4 h-4 text-amber-700" />
-          <span>Model Architecture & Transparency Notice</span>
-        </div>
-        <p className="text-amber-900/90 leading-relaxed">
-          {metadata.data_quality_note}
-        </p>
-        <div className="pt-2 border-t border-amber-200/60 flex flex-wrap items-center gap-x-6 gap-y-1 text-[11px] text-amber-800">
-          <span>• <strong>Crop Model:</strong> Sheshank2609 (Random Forest Classifier)</span>
-          <span>• <strong>Yield Model:</strong> NIHAL670 (Random Forest Regressor, quintal/ha)</span>
-          <span>• <strong>Knowledge Base Version:</strong> {metadata.crop_db_version}</span>
-        </div>
-      </div>
+
 
       {/* Top 3 Recommendation Cards */}
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Top 3 Farm-Aware Crop Choices</h2>
+            <h2 className="text-lg font-bold text-slate-900">Top 3 Recommended Crops</h2>
             <p className="text-xs text-slate-500">
-              Ranked after applying deterministic penalties for water, duration, and pH compatibility
+              The absolute best choices for your region and resources.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           {top_recommendations.map((rec, index) => (
             <RecommendationCard
               key={rec.crop}
@@ -131,12 +117,12 @@ export const RecommendationsPage: React.FC<RecommendationsPageProps> = ({
       </div>
 
       {/* All Candidates Comparison Table */}
-      <div className="space-y-3">
+      <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Candidate Ranking Matrix</h2>
+            <h2 className="text-lg font-bold text-slate-900">All Other Crops</h2>
             <p className="text-xs text-slate-500">
-              Search and compare all 22 crops analyzed by SWAMITRA
+              Search and compare other crops
             </p>
           </div>
 

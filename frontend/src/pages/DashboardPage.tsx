@@ -60,7 +60,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
   if (!isConfigured || !profile) {
     return (
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6">
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-sm text-center">
+        <div className="glass-card p-8 sm:p-12 text-center animate-fade-in-up">
           <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto shadow-inner">
             <Sparkles className="w-8 h-8" />
           </div>
@@ -69,7 +69,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
             Welcome to SWAMITRA
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-            AI-powered agricultural decision-support system. Configure your farm location, soil chemistry, and resource constraints to receive ML-powered crop recommendations and yield forecasts.
+            Configure your farm location and soil details to receive personalized crop recommendations and yield forecasts.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -110,7 +110,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
   return (
     <div className="space-y-6 pb-12">
       {/* Top Farm Banner */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="glass-card p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-fade-in-up">
         <div>
           <div className="flex items-center gap-2 text-emerald-800 text-xs font-semibold uppercase tracking-wider">
             <MapPin className="w-4 h-4 text-emerald-700" />
@@ -143,7 +143,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
 
       {/* Primary Recommendation Highlight Banner */}
       {topCrop && (
-        <div className="bg-gradient-to-r from-emerald-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
+        <div className="bg-gradient-to-r from-emerald-800 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-lg shadow-emerald-900/20 relative overflow-hidden animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-800/80 text-emerald-200 text-xs font-semibold border border-emerald-700/50">
@@ -157,16 +157,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
                 {topCrop.explanation}
               </p>
 
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium">
-                <div className="flex items-center gap-1.5">
-                  <Scale className="w-4 h-4 text-emerald-400" />
-                  <span>Suitability Score:</span>
-                  <strong className="text-white text-base">{Math.round(topCrop.suitability_score * 100)}%</strong>
-                </div>
-                <div className="flex items-center gap-1.5 text-emerald-200">
-                  <TrendingUp className="w-4 h-4 text-emerald-400" />
-                  <span>ML Probability:</span>
-                  <strong className="text-white">{Math.round(topCrop.ml_score * 100)}%</strong>
+              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm font-medium">
+                <div className="flex items-center gap-1.5 bg-emerald-700/50 px-3 py-1.5 rounded-lg border border-emerald-600/50">
+                  <Sparkles className="w-4 h-4 text-emerald-300" />
+                  <span>Match Rating:</span>
+                  <strong className="text-white">Excellent Match</strong>
                 </div>
                 {topCrop.predicted_yield_per_ha && (
                   <div className="flex items-center gap-1.5 text-emerald-200">
@@ -191,7 +186,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
                 }}
                 className="px-5 py-3 rounded-xl bg-emerald-800/80 border border-emerald-700 text-white font-semibold text-xs hover:bg-emerald-800 transition-colors text-center"
               >
-                Deep-Dive Agronomic Analysis
+                See Details
               </button>
             </div>
           </div>
@@ -203,7 +198,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
             <Thermometer className="w-4 h-4 text-emerald-700" />
-            <span>Environmental & Weather Telemetry</span>
+            <span>Current Weather</span>
           </h3>
           {weather && (
             <span className="text-xs text-slate-500">
@@ -245,12 +240,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
       </div>
 
       {/* Grid: Soil Chemistry & Farm Constraints */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         {/* Soil Summary */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+        <div className="glass-card p-5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-4">
             <Layers className="w-4 h-4 text-emerald-700" />
-            <span>Soil Macronutrients & Reaction</span>
+            <span>Soil Details</span>
           </h3>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
@@ -285,10 +280,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
         </div>
 
         {/* Farm Constraints & Water */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+        <div className="glass-card p-5 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-4">
             <Waves className="w-4 h-4 text-emerald-700" />
-            <span>Water & Season Resource Window</span>
+            <span>Water & Time Available</span>
           </h3>
 
           <div className="grid grid-cols-2 gap-3 text-center">
@@ -305,22 +300,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onSele
           </div>
 
           <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 flex items-center justify-between">
-            <span>Supplemental Irrigation Infrastructure:</span>
+            <span>Irrigation Setup:</span>
             <span className={`font-bold ${profile.irrigation_available ? 'text-emerald-700' : 'text-slate-500'}`}>
               {profile.irrigation_available ? 'Equipped (Active)' : 'Rainfed Only'}
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* Model Transparency Disclaimer Card */}
-      <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-amber-900 text-xs flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
-        <div className="space-y-1">
-          <p className="font-semibold">Agronomic Decision-Support Notice</p>
-          <p className="text-amber-800">
-            Suitability calculations enforce deterministic penalties for water, duration, and pH limits using prototype reference ranges from <code>crops.json</code>. Yield predictions are generated by the <code>NIHAL670/Crop-yield</code> Random Forest model, where Nitrogen, Phosphorus, Potassium, Humidity, and Soil_Type were synthetically generated during training and primary predictive signals derive from State, Crop, Season, Area, and Rainfall.
-          </p>
         </div>
       </div>
     </div>

@@ -10,9 +10,9 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ activeTab, onTabChange, children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+    <div className="min-h-screen flex flex-col text-slate-900 transition-colors duration-500">
       <Navbar activeTab={activeTab} onTabChange={onTabChange} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 flex-1 w-full">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 flex-1 w-full animate-fade-in-up">
         {children}
       </main>
       <Footer />

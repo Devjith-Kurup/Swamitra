@@ -57,7 +57,7 @@ CLIMATE_OUT_FACTOR = 0.70      # Temperature or rainfall out of viable range
 CLIMATE_OK_FACTOR  = 1.0
 
 # Path to knowledge base (relative to repo root, resolved at load time)
-_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 CROP_DB_PATH = os.path.join(_REPO_ROOT, "data", "crops", "crops.json")
 
 

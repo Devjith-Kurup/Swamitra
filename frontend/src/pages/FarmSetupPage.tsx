@@ -142,19 +142,19 @@ export const FarmSetupPage: React.FC<FarmSetupPageProps> = ({ onNavigate }) => {
     <div className="max-w-5xl mx-auto space-y-6 pb-12">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Farm Setup & Telemetry</h1>
+        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Farm Setup</h1>
         <p className="text-sm text-slate-600 mt-1">
-          Configure soil chemistry, farm resource limits, and Indian state categoricals. All inputs strictly conform to SWAMITRA's backend schemas.
+          Tell us about your farm. You can pick a quick preset below or fill in your details manually.
         </p>
       </div>
 
       {error && <ErrorAlert message={error} onDismiss={clearError} />}
 
       {/* Preset Hub Selector */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
-          <Sparkles className="w-4 h-4 text-emerald-700" />
-          <span>Quick Agricultural Hub Presets</span>
+      <div className="glass-card p-5 animate-fade-in-up">
+        <div className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3">
+          <Sparkles className="w-5 h-5 text-emerald-700" />
+          <span>Quick Setup: Choose a region close to you</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
           {LOCATION_PRESETS.map((p, idx) => (
@@ -177,76 +177,30 @@ export const FarmSetupPage: React.FC<FarmSetupPageProps> = ({ onNavigate }) => {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Section 1: Location & Coordinates */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+        {/* Basic Information */}
+        <div className="glass-card p-6 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-emerald-700" />
-              <span>1. Location & Farm Boundaries</span>
+              <MapPin className="w-5 h-5 text-emerald-700" />
+              <span>Basic Farm Information</span>
             </h2>
-            <button
-              type="button"
-              onClick={handleFetchWeather}
-              disabled={isFetchingWeather}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition-colors flex items-center gap-1.5 border border-slate-200"
-            >
-              <CloudSun className="w-3.5 h-3.5 text-emerald-700" />
-              <span>{isFetchingWeather ? 'Fetching Weather...' : 'Fetch Live Weather for Coordinates'}</span>
-              {weatherFetchSuccess && <Check className="w-3.5 h-3.5 text-emerald-600" />}
-            </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Farm Name / Identifier</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Farm Name</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                placeholder="e.g. Pune Valley Farm"
+                placeholder="e.g. My Farm"
                 required
               />
             </div>
-
+            
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Latitude (°N) <span className="text-slate-400 font-normal">(-90 to 90)</span>
-              </label>
-              <input
-                type="number"
-                step="0.0001"
-                value={formData.latitude}
-                onChange={(e) => setFormData({ ...formData, latitude: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.latitude ? 'border-rose-500' : 'border-slate-200'
-                }`}
-                required
-              />
-              {validationErrors.latitude && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.latitude}</p>}
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Longitude (°E) <span className="text-slate-400 font-normal">(-180 to 180)</span>
-              </label>
-              <input
-                type="number"
-                step="0.0001"
-                value={formData.longitude}
-                onChange={(e) => setFormData({ ...formData, longitude: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.longitude ? 'border-rose-500' : 'border-slate-200'
-                }`}
-                required
-              />
-              {validationErrors.longitude && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.longitude}</p>}
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Cultivated Area <span className="text-slate-400 font-normal">(hectares)</span>
-              </label>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Farm Size (Hectares)</label>
               <input
                 type="number"
                 step="0.1"
@@ -259,150 +213,48 @@ export const FarmSetupPage: React.FC<FarmSetupPageProps> = ({ onNavigate }) => {
                 }`}
                 required
               />
-              {validationErrors.farm_area_ha && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.farm_area_ha}</p>}
-            </div>
-          </div>
-        </div>
-
-        {/* Section 2: Soil Macronutrients & pH */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-          <div className="border-b border-slate-100 pb-3">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-emerald-700" />
-              <span>2. Soil Chemistry (Macronutrients & pH)</span>
-            </h2>
-            <p className="text-xs text-slate-500">
-              Primary chemical parameters used by the crop recommendation machine learning classifier.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Nitrogen (N) <span className="text-slate-400 font-normal">mg/kg (0–300)</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="300"
-                value={formData.nitrogen}
-                onChange={(e) => setFormData({ ...formData, nitrogen: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.nitrogen ? 'border-rose-500' : 'border-slate-200'
-                }`}
-                required
-              />
-              {validationErrors.nitrogen && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.nitrogen}</p>}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Phosphorus (P) <span className="text-slate-400 font-normal">mg/kg (0–300)</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="300"
-                value={formData.phosphorus}
-                onChange={(e) => setFormData({ ...formData, phosphorus: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.phosphorus ? 'border-rose-500' : 'border-slate-200'
-                }`}
+              <label className="block text-sm font-semibold text-slate-700 mb-1">State</label>
+              <select
+                value={formData.yield_state}
+                onChange={(e) => setFormData({ ...formData, yield_state: e.target.value })}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                 required
-              />
-              {validationErrors.phosphorus && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.phosphorus}</p>}
+              >
+                {states.map((st) => (
+                  <option key={st} value={st}>{st}</option>
+                ))}
+              </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Potassium (K) <span className="text-slate-400 font-normal">mg/kg (0–300)</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="300"
-                value={formData.potassium}
-                onChange={(e) => setFormData({ ...formData, potassium: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.potassium ? 'border-rose-500' : 'border-slate-200'
-                }`}
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Growing Season</label>
+              <select
+                value={formData.yield_season}
+                onChange={(e) => setFormData({ ...formData, yield_season: e.target.value })}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                 required
-              />
-              {validationErrors.potassium && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.potassium}</p>}
+              >
+                {seasons.map((sn) => (
+                  <option key={sn} value={sn}>{sn}</option>
+                ))}
+              </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Soil Reaction (pH) <span className="text-slate-400 font-normal">(3.5–9.5)</span>
-              </label>
-              <input
-                type="number"
-                step="0.1"
-                min="3.5"
-                max="9.5"
-                value={formData.ph}
-                onChange={(e) => setFormData({ ...formData, ph: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.ph ? 'border-rose-500' : 'border-slate-200'
-                }`}
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Soil Type</label>
+              <select
+                value={formData.yield_soil_type}
+                onChange={(e) => setFormData({ ...formData, yield_soil_type: e.target.value })}
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                 required
-              />
-              {validationErrors.ph && <p className="text-[11px] text-rose-600 mt-1">{validationErrors.ph}</p>}
-            </div>
-          </div>
-        </div>
-
-        {/* Section 3: Farm Resource Constraints */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-          <div className="border-b border-slate-100 pb-3">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Waves className="w-4 h-4 text-emerald-700" />
-              <span>3. Resource Constraints & Water Budget</span>
-            </h2>
-            <p className="text-xs text-slate-500">
-              Evaluated by the suitability engine to prevent recommending crops that exceed available water or season duration.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Water Availability <span className="text-slate-400 font-normal">mm / season (0–5000)</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="5000"
-                value={formData.water_availability_mm}
-                onChange={(e) => setFormData({ ...formData, water_availability_mm: parseFloat(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.water_availability_mm ? 'border-rose-500' : 'border-slate-200'
-                }`}
-                required
-              />
-              {validationErrors.water_availability_mm && (
-                <p className="text-[11px] text-rose-600 mt-1">{validationErrors.water_availability_mm}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Available Growing Window <span className="text-slate-400 font-normal">days (1–365)</span>
-              </label>
-              <input
-                type="number"
-                min="1"
-                max="365"
-                value={formData.growing_days_available}
-                onChange={(e) => setFormData({ ...formData, growing_days_available: parseInt(e.target.value) || 0 })}
-                className={`w-full px-3 py-2 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                  validationErrors.growing_days_available ? 'border-rose-500' : 'border-slate-200'
-                }`}
-                required
-              />
-              {validationErrors.growing_days_available && (
-                <p className="text-[11px] text-rose-600 mt-1">{validationErrors.growing_days_available}</p>
-              )}
+              >
+                {soilTypes.map((st) => (
+                  <option key={st} value={st}>{st}</option>
+                ))}
+              </select>
             </div>
 
             <div className="flex items-center gap-3 pt-6">
@@ -411,77 +263,124 @@ export const FarmSetupPage: React.FC<FarmSetupPageProps> = ({ onNavigate }) => {
                 id="irrigation"
                 checked={formData.irrigation_available}
                 onChange={(e) => setFormData({ ...formData, irrigation_available: e.target.checked })}
-                className="w-4 h-4 rounded text-emerald-700 focus:ring-emerald-500 border-slate-300"
+                className="w-5 h-5 rounded text-emerald-700 focus:ring-emerald-500 border-slate-300"
               />
-              <label htmlFor="irrigation" className="text-xs font-semibold text-slate-800 cursor-pointer">
-                Supplemental Irrigation Available (Drip, Canal, or Borewell)
+              <label htmlFor="irrigation" className="text-sm font-bold text-slate-800 cursor-pointer">
+                I have irrigation (Drip, Canal, or Borewell)
               </label>
             </div>
           </div>
         </div>
 
-        {/* Section 4: Yield Model Configuration */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-          <div className="border-b border-slate-100 pb-3">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Compass className="w-4 h-4 text-emerald-700" />
-              <span>4. Yield Prediction Configuration (NIHAL670 Model)</span>
-            </h2>
-            <p className="text-xs text-slate-500">
-              Categorical encoders required by the Random Forest yield regressor. These options strictly match the model's training encoders.
-            </p>
+        {/* Advanced Settings (Hidden by default) */}
+        <details className="glass-card group animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <summary className="p-6 font-bold text-slate-700 cursor-pointer flex items-center justify-between outline-none">
+            <span className="flex items-center gap-2">
+              <Layers className="w-5 h-5 text-emerald-700" />
+              Advanced Soil & Weather Settings (Optional)
+            </span>
+            <span className="text-xs text-slate-400 group-open:hidden">Click to expand</span>
+          </summary>
+          
+          <div className="px-6 pb-6 space-y-6 border-t border-slate-100 pt-4">
+            
+            {/* Auto Weather */}
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <div>
+                <div className="font-bold text-sm text-slate-800">Auto-detect weather</div>
+                <div className="text-xs text-slate-500">Fetch live weather data based on the coordinates below.</div>
+              </div>
+              <button
+                type="button"
+                onClick={handleFetchWeather}
+                disabled={isFetchingWeather}
+                className="text-xs font-bold px-4 py-2 rounded-lg bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors flex items-center gap-2"
+              >
+                <CloudSun className="w-4 h-4" />
+                <span>{isFetchingWeather ? 'Fetching...' : 'Get Live Weather'}</span>
+                {weatherFetchSuccess && <Check className="w-4 h-4 text-emerald-600" />}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Latitude (°N)</label>
+                <input
+                  type="number"
+                  step="0.0001"
+                  value={formData.latitude}
+                  onChange={(e) => setFormData({ ...formData, latitude: parseFloat(e.target.value) || 0 })}
+                  className={`w-full px-3 py-2 rounded-xl border text-sm ${validationErrors.latitude ? 'border-rose-500' : 'border-slate-200'}`}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Longitude (°E)</label>
+                <input
+                  type="number"
+                  step="0.0001"
+                  value={formData.longitude}
+                  onChange={(e) => setFormData({ ...formData, longitude: parseFloat(e.target.value) || 0 })}
+                  className={`w-full px-3 py-2 rounded-xl border text-sm ${validationErrors.longitude ? 'border-rose-500' : 'border-slate-200'}`}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Nitrogen (N)</label>
+                <input
+                  type="number"
+                  value={formData.nitrogen}
+                  onChange={(e) => setFormData({ ...formData, nitrogen: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Phosphorus (P)</label>
+                <input
+                  type="number"
+                  value={formData.phosphorus}
+                  onChange={(e) => setFormData({ ...formData, phosphorus: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Potassium (K)</label>
+                <input
+                  type="number"
+                  value={formData.potassium}
+                  onChange={(e) => setFormData({ ...formData, potassium: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Soil pH</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={formData.ph}
+                  onChange={(e) => setFormData({ ...formData, ph: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Water Available (mm)</label>
+                <input
+                  type="number"
+                  value={formData.water_availability_mm}
+                  onChange={(e) => setFormData({ ...formData, water_availability_mm: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Growing Window (days)</label>
+                <input
+                  type="number"
+                  value={formData.growing_days_available}
+                  onChange={(e) => setFormData({ ...formData, growing_days_available: parseInt(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm"
+                />
+              </div>
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">State</label>
-              <select
-                value={formData.yield_state}
-                onChange={(e) => setFormData({ ...formData, yield_state: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
-                required
-              >
-                {states.map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Season</label>
-              <select
-                value={formData.yield_season}
-                onChange={(e) => setFormData({ ...formData, yield_season: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
-                required
-              >
-                {seasons.map((sn) => (
-                  <option key={sn} value={sn}>
-                    {sn}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Soil Type</label>
-              <select
-                value={formData.yield_soil_type}
-                onChange={(e) => setFormData({ ...formData, yield_soil_type: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
-                required
-              >
-                {soilTypes.map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
+        </details>
 
         {/* Submit Bar */}
         <div className="flex items-center justify-end gap-3 pt-2">

@@ -19,7 +19,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-slate-300 transition-colors ${className}`}>
+    <div className={`glass-panel p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${className}`}>
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">{label}</span>
         {icon && <div className="text-emerald-700">{icon}</div>}

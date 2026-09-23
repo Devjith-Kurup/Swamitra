@@ -31,7 +31,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-5 flex flex-col justify-between">
+    <div className="glass-card hover:-translate-y-1 transition-all duration-300 p-5 flex flex-col justify-between h-full">
       <div>
         {/* Card Header */}
         <div className="flex items-start justify-between gap-3">
@@ -52,45 +52,13 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
           </div>
 
           <div className="text-right">
-            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Suitability</div>
-            <div className="text-2xl font-black text-emerald-700">{suitabilityPct}%</div>
-          </div>
-        </div>
-
-        {/* Dual Scores: Suitability vs Raw ML */}
-        <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-2.5">
-          <div>
-            <div className="flex items-center justify-between text-xs font-medium text-slate-700">
-              <span className="flex items-center gap-1">
-                <Scale className="w-3.5 h-3.5 text-emerald-700" />
-                Farm-Adjusted Suitability
-              </span>
-              <span className="font-bold text-slate-900">{suitabilityPct}%</span>
-            </div>
-            <div className="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
-              <div
-                className="h-full bg-emerald-600 rounded-full transition-all duration-500"
-                style={{ width: `${Math.max(4, suitabilityPct)}%` }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between text-xs font-medium text-slate-600">
-              <span className="flex items-center gap-1">
-                <TrendingUp className="w-3.5 h-3.5 text-slate-400" />
-                Raw ML Model Probability
-              </span>
-              <span className="font-semibold text-slate-700">{mlScorePct}%</span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-200 rounded-full mt-1 overflow-hidden">
-              <div
-                className="h-full bg-slate-500 rounded-full transition-all duration-500"
-                style={{ width: `${Math.max(2, mlScorePct)}%` }}
-              />
+            <div className="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-emerald-100 text-emerald-800">
+              {suitabilityPct >= 80 ? 'Excellent Match' : suitabilityPct >= 60 ? 'Good Match' : 'Fair Match'}
             </div>
           </div>
         </div>
+
+
 
         {/* Expected Yield section (if available from backend) */}
         {cropResult.predicted_yield_per_ha !== undefined && cropResult.predicted_yield_per_ha !== null && (
@@ -116,8 +84,8 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
         {/* Limiting Factors */}
         <div className="mt-4">
-          <div className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
-            Limiting Constraints
+          <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            Things to watch out for
           </div>
           {cropResult.limiting_factors.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
@@ -128,7 +96,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
           ) : (
             <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-medium">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>No limiting constraints detected</span>
+              <span>Looks good! No major issues.</span>
             </div>
           )}
         </div>
@@ -145,7 +113,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
           onClick={() => onSelectCrop(cropResult.crop)}
           className="mt-5 w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors shadow-xs"
         >
-          <span>Deep-Dive Agronomic Analysis</span>
+          <span>See Details</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       )}
